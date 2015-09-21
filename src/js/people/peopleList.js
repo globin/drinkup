@@ -5,8 +5,8 @@ import { List, ListItem } from 'material-ui';
 import PeopleStore from './peopleStore';
 
 @connectToStores
-class AddPerson extends React.Component {
-    propTypes = {
+class PeopleList extends React.Component {
+    static propTypes = {
         people: React.PropTypes.array.isRequired,
     };
 
@@ -19,7 +19,7 @@ class AddPerson extends React.Component {
     }
 
     render() {
-        const listItems = this.props.people.map((person) => <ListItem primaryText={person.name} />);
+        const listItems = this.props.people.map((person) => <ListItem disabled primaryText={person.name} />);
 
         return (
             <List>
@@ -29,4 +29,4 @@ class AddPerson extends React.Component {
     }
 }
 
-export default AddPerson;
+export default PeopleList;

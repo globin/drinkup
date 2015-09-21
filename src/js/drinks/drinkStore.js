@@ -4,27 +4,16 @@ import actions from './drinkActions';
 
 @createStore(flux)
 class DrinkStore {
-    drinks = [
-        {
-            name: 'Spezi',
-        },
-        {
-            name: 'Radler',
-        },
-        {
-            name: 'Pali',
-        },
-        {
-            name: 'Tegernseer',
-        },
-        {
-            name: 'Augustiner',
-        },
-    ];
+    drinks = [];
 
     @bind(actions.add)
-    add(name) {
-        this.drinks.push({ name });
+    add(drink) {
+        this.drinks.push(drink);
+    }
+
+    @bind(actions.update)
+    update(drinks) {
+        this.drinks = drinks;
     }
 }
 

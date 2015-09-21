@@ -4,24 +4,16 @@ import actions from './peopleActions';
 
 @createStore(flux)
 class PeopleStore {
-    people = [
-        {
-            name: 'Jack',
-        },
-        {
-            name: 'John',
-        },
-        {
-            name: 'Peter',
-        },
-        {
-            name: 'George',
-        },
-    ];
+    people = [];
 
     @bind(actions.add)
-    add(name) {
-        this.people.push({ name });
+    add(person) {
+        this.people.push(person);
+    }
+
+    @bind(actions.update)
+    update(people) {
+        this.people = people;
     }
 }
 

@@ -5,8 +5,8 @@ import { List, ListItem } from 'material-ui';
 import DrinkStore from './drinkStore';
 
 @connectToStores
-class AddDrink extends React.Component {
-    propTypes = {
+class DrinkList extends React.Component {
+    static propTypes = {
         drinks: React.PropTypes.array.isRequired,
     };
 
@@ -19,7 +19,9 @@ class AddDrink extends React.Component {
     }
 
     render() {
-        const listItems = this.props.drinks.map((drink) => <ListItem primaryText={drink.name} />);
+        const listItems = this.props.drinks.map((drink) => {
+            return (<ListItem disabled primaryText={`${drink.name} (${drink.price})`} />);
+        });
 
         return (
             <List>
@@ -29,4 +31,4 @@ class AddDrink extends React.Component {
     }
 }
 
-export default AddDrink;
+export default DrinkList;
