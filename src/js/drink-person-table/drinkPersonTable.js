@@ -6,8 +6,10 @@ import DrinkPersonActions from './drinkPersonActions';
 import DrinkPersonStore from './drinkPersonStore';
 import DrinkStore from 'drinks/drinkStore';
 
+import pf from 'utils/priceFormat';
+
 @connectToStores
-class Drinks extends React.Component {
+class DrinkPersonTable extends React.Component {
     static propTypes = {
         drinks: React.PropTypes.array.isRequired,
         drinksPerPerson: React.PropTypes.object.isRequired,
@@ -58,7 +60,7 @@ class Drinks extends React.Component {
                     <TableRow>
                         <TableHeaderColumn>Name</TableHeaderColumn>
                         {this.props.drinks.map(({ name, price }) =>
-                            <TableHeaderColumn>{name} ({price})</TableHeaderColumn>)}
+                            <TableHeaderColumn>{name} ({pf(price)})</TableHeaderColumn>)}
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false} showRowHover stripedRows>
@@ -77,4 +79,4 @@ class Drinks extends React.Component {
     };
 }
 
-export default Drinks;
+export default DrinkPersonTable;

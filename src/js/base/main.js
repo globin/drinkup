@@ -93,6 +93,12 @@ class Main extends React.Component {
                                 label='List'
                                 route='drink-person-table'
                             />
+                            <Tab
+                                style={styles.tab}
+                                value='4'
+                                label='Payment'
+                                route='payment'
+                            />
                         </Tabs>
                     </div>
                 </Paper>
@@ -113,6 +119,9 @@ class Main extends React.Component {
         }
         if (this.context.router.isActive('drink-person-table')) {
             return '3';
+        }
+        if (this.context.router.isActive('payment')) {
+            return '4';
         }
 
         return '0';
