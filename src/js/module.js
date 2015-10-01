@@ -5,6 +5,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
-Router.run(routes, Router.HistoryLocation, (Root, state) => {
+Router.run(routes, (Root, state) => {
     React.render(<Root {...state}/>, document.getElementById('content'));
 });
