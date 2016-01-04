@@ -1,9 +1,15 @@
 import React from 'react';
 import { RaisedButton, TextField } from 'material-ui';
 
+import ValueLink from '../utils/valueLink';
 import PeopleActions from './peopleActions';
 
+@ValueLink
 class AddPerson extends React.Component {
+    state = {
+        name: '',
+    };
+
     render() {
         const styles = {
             button: {
@@ -13,15 +19,15 @@ class AddPerson extends React.Component {
 
         return (
             <form onSubmit={this.save}>
-                <TextField floatingLabelText='Name' ref='name' />
+                <TextField floatingLabelText='Name' valueLink={this.valueLink('name')} />
                 <RaisedButton style={styles.button} label='Save' type='submit' primary />
             </form>
         );
     }
 
     save = (evt) => {
-        PeopleActions.add({ name: this.refs.name.getValue() });
-        this.refs.name.setValue('');
+        PeopleActions.add({ name: this.state.name });
+        this.setState({ name: '' }); // eslint-disable-line react/no-set-state
         evt.preventDefault();
     }
 }

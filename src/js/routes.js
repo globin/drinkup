@@ -8,11 +8,11 @@ import DrinkPersonTable from 'drink-person-table/drinkPersonTable';
 import Payment from 'payment/payment';
 
 const routes = (
-    <Route handler={Main}>
-        <Route name='people' handler={People}/>
-        <Route name='drinks' handler={Drinks}/>
-        <Route name='drink-person-table' handler={DrinkPersonTable}/>
-        <Route name='payment' handler={Payment}/>
+    <Route path='/' component={Main}>
+        <Route path='people' component={People}/>
+        <Route path='drinks' component={Drinks}/>
+        <Route path='drink-person-table' component={DrinkPersonTable}/>
+        <Route path='payment' component={Payment}/>
     </Route>
 );
 

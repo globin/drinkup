@@ -1,6 +1,4 @@
 import React from 'react';
-import { RouteHandler } from 'react-router';
-import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import { AppCanvas, Paper, Styles, Tab, Tabs } from 'material-ui';
 
 import DrinkActions from 'drinks/drinkActions';
@@ -10,27 +8,17 @@ const { Colors } = Styles;
 
 
 class Main extends React.Component {
-
-    static childContextTypes = {
-        muiTheme: React.PropTypes.object,
+    static propTypes = {
+        history: React.PropTypes.object,
+        children: React.PropTypes.element,
     };
-
-    static contextTypes = {
-        router: React.PropTypes.func,
-    };
-
-    getChildContext() {
-        return {
-            muiTheme: new ThemeManager().getCurrentTheme(),
-        };
-    }
 
     state = {
-        tabIndex: this.getSelectedIndex(),
+        tabIndex: this.tabIndex,
     };
 
     componentWillReceiveProps() {
-        this.setState({ tabIndex: this.getSelectedIndex() }); // eslint-disable-line react/no-set-state
+        this.setState({ tabIndex: this.tabIndex }); // eslint-disable-line react/no-set-state
     }
 
     render() {
@@ -62,8 +50,7 @@ class Main extends React.Component {
         };
 
         return (
-            <AppCanvas >
-
+            <AppCanvas>
                 <Paper
                     zDepth={0}
                     rounded={false}
@@ -104,23 +91,23 @@ class Main extends React.Component {
                 </Paper>
 
                 <div style={styles.container}>
-                    <RouteHandler/>
+                    {this.props.children}
                 </div>
             </AppCanvas>
         );
     }
 
-    getSelectedIndex() {
-        if (this.context.router.isActive('drinks')) {
+    get tabIndex() {
+        if (this.props.history.isActive('drinks')) {
             return '1';
         }
-        if (this.context.router.isActive('people')) {
+        if (this.props.history.isActive('people')) {
             return '2';
         }
-        if (this.context.router.isActive('drink-person-table')) {
+        if (this.props.history.isActive('drink-person-table')) {
             return '3';
         }
-        if (this.context.router.isActive('payment')) {
+        if (this.props.history.isActive('payment')) {
             return '4';
         }
 
@@ -128,8 +115,8 @@ class Main extends React.Component {
     }
 
     handleTabChange = (value, e, tab) => {
-        this.context.router.transitionTo(tab.props.route);
-        this.setState({ tabIndex: this.getSelectedIndex() });
+        this.props.history.pushState(null, tab.props.route);
+        this.setState({ tabIndex: this.tabIndex });
     };
 
     componentWillMount() {

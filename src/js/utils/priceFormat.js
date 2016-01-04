@@ -1,3 +1,3 @@
 export default function priceFormat(priceValue) {
-    return `${priceValue.toFixed(2)} €`;
+    return `${parseFloat(priceValue).toFixed(2)} €`;
 }

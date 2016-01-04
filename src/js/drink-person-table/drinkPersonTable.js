@@ -6,8 +6,6 @@ import DrinkPersonActions from './drinkPersonActions';
 import DrinkPersonStore from './drinkPersonStore';
 import DrinkStore from 'drinks/drinkStore';
 
-import pf from 'utils/priceFormat';
-
 @connectToStores
 class DrinkPersonTable extends React.Component {
     static propTypes = {
@@ -29,7 +27,7 @@ class DrinkPersonTable extends React.Component {
     getRowData(personName) {
         return this.props.drinks.map(({ name: drinkName }) => {
             return (
-                <TableRowColumn>
+                <TableRowColumn key={drinkName}>
                     <IconButton iconClassName='material-icons' onClick={this.dec.bind(this, personName, drinkName)}>
                         remove
                     </IconButton>
@@ -45,7 +43,7 @@ class DrinkPersonTable extends React.Component {
     getRows() {
         return Object.keys(this.props.drinksPerPerson).map((name) => {
             return (
-                <TableRow>
+                <TableRow key={name}>
                     <TableRowColumn>{name}</TableRowColumn>
                     {this.getRowData(name)}
                 </TableRow>
@@ -59,8 +57,8 @@ class DrinkPersonTable extends React.Component {
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                     <TableRow>
                         <TableHeaderColumn>Name</TableHeaderColumn>
-                        {this.props.drinks.map(({ name, price }) =>
-                            <TableHeaderColumn>{name} ({pf(price)})</TableHeaderColumn>)}
+                        {this.props.drinks.map(({ name, priceString }) =>
+                            <TableHeaderColumn key={name}>{name} ({priceString})</TableHeaderColumn>)}
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false} showRowHover stripedRows>

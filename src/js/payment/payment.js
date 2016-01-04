@@ -42,7 +42,7 @@ class Payment extends React.Component {
 
     getRows() {
         return Object.keys(this.props.drinksPerPerson).map((name) =>
-            <TableRow>
+            <TableRow key={name}>
                 <TableRowColumn>{name}</TableRowColumn>
                 {this.getRowData(name).map(({ price, count }) =>
                     <TableRowColumn>{pf(price)} ({count}x)</TableRowColumn>
@@ -67,8 +67,8 @@ class Payment extends React.Component {
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                     <TableRow>
                         <TableHeaderColumn>Name</TableHeaderColumn>
-                        {this.props.drinks.map(({ name, price }) =>
-                            <TableHeaderColumn>{name} ({pf(price)})</TableHeaderColumn>
+                        {this.props.drinks.map(({ name, priceString }) =>
+                            <TableHeaderColumn key={name}>{name} ({priceString})</TableHeaderColumn>
                         )}
                         <TableHeaderColumn>Sum</TableHeaderColumn>
                     </TableRow>
@@ -77,8 +77,8 @@ class Payment extends React.Component {
                     {this.getRows()}
                     <TableRow>
                         <TableRowColumn>Sum</TableRowColumn>
-                        {this.getDrinksSums().map(({ count, price }) =>
-                            <TableRowColumn>{pf(price)} ({count}x)</TableRowColumn>
+                        {this.getDrinksSums().map(({ count, priceString }) =>
+                            <TableRowColumn>{priceString} ({count}x)</TableRowColumn>
                         )}
                         <TableRowColumn />
                     </TableRow>

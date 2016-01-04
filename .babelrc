@@ -1,5 +1,8 @@
 {
-  "optional": ["runtime", "strict"],
-  "stage": 0,
-  "comments": false
+  "plugins": [
+    "transform-runtime",
+    "transform-strict-mode",
+    "transform-decorators-legacy"
+  ],
+  "presets": ["es2015", "stage-0", "react"],
 }

@@ -1,4 +1,6 @@
-class DrinkSource {
+import Drink from './drink';
+
+export default class DrinkSource {
     static mockDrinks = [
         {
             name: 'Spezi',
@@ -25,10 +27,8 @@ class DrinkSource {
     static fetch() {
         return new Promise((resolve) => {
             setTimeout(() => {
-                resolve(DrinkSource.mockDrinks);
+                resolve(DrinkSource.mockDrinks.map(({ name, price }) => new Drink(name, price)));
             }, 0);
         });
     }
 }
-
-export default DrinkSource;

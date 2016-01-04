@@ -4,8 +4,6 @@ import { List, ListItem } from 'material-ui';
 
 import DrinkStore from './drinkStore';
 
-import pf from 'utils/priceFormat';
-
 @connectToStores
 class DrinkList extends React.Component {
     static propTypes = {
@@ -22,7 +20,7 @@ class DrinkList extends React.Component {
 
     render() {
         const listItems = this.props.drinks.map((drink) => {
-            return (<ListItem disabled primaryText={`${drink.name} (${pf(drink.price)})`} />);
+            return (<ListItem disabled primaryText={`${drink.name} (${drink.priceString})`} key={drink.name} />);
         });
 
         return (

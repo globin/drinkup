@@ -19,7 +19,7 @@ class PeopleList extends React.Component {
     }
 
     render() {
-        const listItems = this.props.people.map((person) => <ListItem disabled primaryText={person.name} />);
+        const listItems = this.props.people.map(({ name }) => <ListItem disabled primaryText={name} key={name}/>);
 
         return (
             <List>

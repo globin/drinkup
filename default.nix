@@ -7,7 +7,6 @@ stdenv.mkDerivation {
     ruby
     nodejs
     compass
-    flow
     nodePackages.grunt-cli
   ];
 }
