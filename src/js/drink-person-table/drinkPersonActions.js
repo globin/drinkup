@@ -1,11 +1,5 @@
-import flux from 'control';
-import { createActions } from 'alt/utils/decorators';
+import makeActionCreator from 'utils/makeActionCreator';
 
-@createActions(flux)
-class DrinkActions {
-    constructor() {
-        this.generateActions('inc', 'dec');
-    }
-}
+const DRINK = 'DRINK';
 
-export default DrinkActions;
+export const drink = makeActionCreator(DRINK, 'personId', 'drinkId', 'num');

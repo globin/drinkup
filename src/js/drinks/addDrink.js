@@ -1,41 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { RaisedButton, TextField } from 'material-ui';
 
-import ValueLink from '../utils/valueLink';
-import Drink from './drink';
-import DrinkActions from './drinkActions';
+import { addDrink } from './drinkActions';
 
-@ValueLink
-class AddDrink extends React.Component {
-    state = {
-        name: '',
-        price: '',
+const AddDrink = ({ dispatch }) => {
+    const inputs = {};
+    const styles = {
+        button: {
+            margin: 10,
+        },
+    };
+    const save = (e) => {
+        e.preventDefault();
+        if (!inputs.name.value.trim() || !inputs.price.value.trim()) {
+            return;
+        }
+        dispatch(addDrink(inputs.name.value, inputs.price.value));
+        inputs.name.value = '';
+        inputs.price.value = '';
+    };
+    const onChange = (field) => (e) => {
+        inputs[field] = e.target;
     };
 
-    render() {
-        const styles = {
-            button: {
-                margin: 10,
-            },
-        };
+    return (
+        <form onSubmit={save}>
+            <TextField onChange={onChange('name')} floatingLabelText='Name' />
+            <TextField onChange={onChange('price')} floatingLabelText='Price' />
+            <RaisedButton style={styles.button} label='Save' type='submit' primary />
+        </form>
+    );
+};
 
-        return (
-            <form onSubmit={this.save}>
-                <TextField floatingLabelText='Name' valueLink={this.valueLink('name')} />
-                <TextField floatingLabelText='Price' valueLink={this.valueLink('price')} />
-                <RaisedButton style={styles.button} label='Save' type='submit' primary />
-            </form>
-        );
-    }
-
-    save = (evt) => {
-        DrinkActions.add(new Drink(this.state.name, this.state.price));
-        this.setState({ // eslint-disable-line react/no-set-state
-            name: '',
-            price: '',
-        });
-        evt.preventDefault();
-    }
-}
-
-export default AddDrink;
+export default connect()(AddDrink);

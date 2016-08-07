@@ -2,10 +2,8 @@ import flux from 'control';
 import { createStore, bind } from 'alt/utils/decorators';
 
 import DrinkPersonActions from './drinkPersonActions';
-import DrinkActions from 'drinks/drinkActions';
-import PeopleActions from 'people/peopleActions';
-import DrinkStore from 'drinks/drinkStore';
-import PeopleStore from 'people/peopleStore';
+//import DrinkActions from 'drinks/drinkActions';
+//import DrinkStore from 'drinks/drinkStore';
 
 @createStore(flux)
 class DrinkPersonStore {
@@ -17,18 +15,18 @@ class DrinkPersonStore {
         return drinksCount;
     }
 
-    @bind(DrinkActions.add, DrinkActions.update, PeopleActions.add, PeopleActions.update)
+    //@bind(DrinkActions.add, DrinkActions.update)
     updateUpstream() {
-        this.waitFor(DrinkStore, PeopleStore);
+        //this.waitFor(DrinkStore);
 
-        this.drinksPerPerson = PeopleStore.getState().people.reduce((drinksPerPerson, { name: personName }) => {
-            drinksPerPerson[personName] = DrinkStore.getState().drinks.reduce(
-                this.fillDrinks,
-                drinksPerPerson[personName] || {}
-            );
-
-            return drinksPerPerson;
-        }, this.drinksPerPerson);
+        //this.drinksPerPerson = PeopleStore.getState().people.reduce((drinksPerPerson, { name: personName }) => {
+        //    drinksPerPerson[personName] = DrinkStore.getState().drinks.reduce(
+        //        this.fillDrinks,
+        //        drinksPerPerson[personName] || {}
+        //    );
+        //
+        //    return drinksPerPerson;
+        //}, this.drinksPerPerson);
     }
 
     @bind(DrinkPersonActions.dec)

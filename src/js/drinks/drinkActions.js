@@ -1,21 +1,5 @@
-import flux from 'control';
-import { createActions } from 'alt/utils/decorators';
+import makeActionCreator from 'utils/makeActionCreator';
 
-import DrinkSource from './drinkSource';
+const ADD_DRINK = 'ADD_DRINK';
 
-@createActions(flux)
-class DrinkActions {
-    constructor() {
-        this.generateActions('add', 'update');
-    }
-
-    fetch() {
-        this.dispatch();
-
-        DrinkSource.fetch().then((drinks) => {
-            this.actions.update(drinks);
-        });
-    }
-}
-
-export default DrinkActions;
+export const addDrink = makeActionCreator(ADD_DRINK, 'name', 'price');

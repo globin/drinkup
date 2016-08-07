@@ -1,35 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { RaisedButton, TextField } from 'material-ui';
 
-import ValueLink from '../utils/valueLink';
-import PeopleActions from './peopleActions';
+import { addPeople } from './peopleActions';
 
-@ValueLink
-class AddPerson extends React.Component {
-    state = {
-        name: '',
+const AddPerson = ({ dispatch }) => {
+    let input;
+    const styles = {
+        button: {
+            margin: 10,
+        },
+    };
+    const save = (e) => {
+        e.preventDefault();
+        if (!input.value.trim()) {
+            return;
+        }
+        dispatch(addPeople(input.value));
+        input.value = '';
     };
 
-    render() {
-        const styles = {
-            button: {
-                margin: 10,
-            },
-        };
+    return (
+        <form onSubmit={save}>
+            <TextField onChange={(e) => {
+                input = e.target;
+            }} floatingLabelText='Name'
+            />
+            <RaisedButton style={styles.button} label='Save' type='submit' primary />
+        </form>
+   );
+};
 
-        return (
-            <form onSubmit={this.save}>
-                <TextField floatingLabelText='Name' valueLink={this.valueLink('name')} />
-                <RaisedButton style={styles.button} label='Save' type='submit' primary />
-            </form>
-        );
-    }
-
-    save = (evt) => {
-        PeopleActions.add({ name: this.state.name });
-        this.setState({ name: '' }); // eslint-disable-line react/no-set-state
-        evt.preventDefault();
-    }
-}
-
-export default AddPerson;
+export default connect()(AddPerson);

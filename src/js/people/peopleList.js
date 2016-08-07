@@ -1,22 +1,11 @@
 import React from 'react';
-import connectToStores from 'alt/utils/connectToStores';
+import { connect } from 'react-redux';
 import { List, ListItem } from 'material-ui';
 
-import PeopleStore from './peopleStore';
-
-@connectToStores
 class PeopleList extends React.Component {
     static propTypes = {
         people: React.PropTypes.array.isRequired,
     };
-
-    static getStores() {
-        return [PeopleStore];
-    }
-
-    static getPropsFromStores() {
-        return PeopleStore.getState();
-    }
 
     render() {
         const listItems = this.props.people.map(({ name }) => <ListItem disabled primaryText={name} key={name}/>);
@@ -29,4 +18,15 @@ class PeopleList extends React.Component {
     }
 }
 
-export default PeopleList;
+const mapStateToProps = (state) => {
+    return {
+        people: state.people,
+    };
+};
+
+const WrappedPeopleList = connect(
+    mapStateToProps
+)(PeopleList);
+
+
+export default WrappedPeopleList;

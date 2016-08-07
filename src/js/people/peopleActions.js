@@ -1,21 +1,5 @@
-import flux from 'control';
-import { createActions } from 'alt/utils/decorators';
+import makeActionCreator from 'utils/makeActionCreator';
 
-import PeopleSource from './peopleSource';
+const ADD_PEOPLE = 'ADD_PEOPLE';
 
-@createActions(flux)
-class PeopleActions {
-    constructor() {
-        this.generateActions('add', 'update');
-    }
-
-    fetch() {
-        this.dispatch();
-
-        PeopleSource.fetch().then((people) => {
-            this.actions.update(people);
-        });
-    }
-}
-
-export default PeopleActions;
+export const addPeople = makeActionCreator(ADD_PEOPLE, 'name');
